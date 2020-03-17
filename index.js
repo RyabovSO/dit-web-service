@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 
 const requestOptions = {
     method: 'GET',
-    headers: {'Authorization': AUTHORIZATION_KEY,'X-4me-Account': 'dit-oiv-it', 'api-token': TOKIEN_API, 'Content-Type': 'application/x-www-form-urlencoded'},
+    headers: {'Authorization': ${{ secrets.AUTHORIZATION_KEY }},'X-4me-Account': 'dit-oiv-it', 'api-token': ${{ secrets.TOKIEN_API }}, 'Content-Type': 'application/x-www-form-urlencoded'},
     
     redirect: 'follow'
 }
