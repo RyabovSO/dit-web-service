@@ -17,6 +17,15 @@ app.get('/:telephone', (request, response) => {
 
 app.post('/', urlencodedParser, (request, response) => {
     console.log(request.headers.link);
+
+    fetch("http://212.11.152.73:13080/SM/9/rest/contacts?query=TelegramID=%22"+msg.from.id+"%22&view=expand", requestOptions)
+    .then(response => response.text())
+    .then(result => {
+        result = JSON.parse(result);
+        console.log(result);
+    })
+    .catch(error => console.error(error))
+
     response.send(request.body)
 })
 
@@ -26,3 +35,4 @@ app.listen(port, (err) => {
     }
     console.log(`server is listening on ${port}`)
 })
+
