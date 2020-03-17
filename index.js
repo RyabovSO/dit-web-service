@@ -4,6 +4,12 @@ const bodyParser = require("body-parser");
 const app = express();
 const port = process.env.PORT || 3000;
 
+const requestOptions = {
+    method: 'GET',
+    headers: {'Authorization': 'Basic QWxla3Nha2hpbkFTOkFsZWtzYWtoaW5BUzEyMw=='},
+    redirect: 'follow'
+}
+
 // создаем парсер для данных application/x-www-form-urlencoded
 const urlencodedParser = bodyParser.urlencoded({extended: false});
 
