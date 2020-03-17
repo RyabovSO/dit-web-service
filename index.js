@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 
 const requestOptions = {
     method: 'GET',
-    headers: {'Authorization': 'Basic QWxla3Nha2hpbkFTOkFsZWtzYWtoaW5BUzEyMw=='},
+    headers: {'Authorization': ''},
     redirect: 'follow'
 }
 
