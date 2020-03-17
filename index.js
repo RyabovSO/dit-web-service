@@ -16,7 +16,7 @@ app.get('/:telephone', (request, response) => {
 })
 
 app.post('/', urlencodedParser, (request, response) => {
-    console.log(request);
+    console.log(request.headers);
     response.send(request.body)
 })
 
