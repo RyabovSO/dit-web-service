@@ -6,7 +6,8 @@ const port = process.env.PORT || 3000;
 
 const requestOptions = {
     method: 'GET',
-    headers: {'Authorization': ''},
+    headers: {'Authorization': AUTHORIZATION_KEY,'X-4me-Account': 'dit-oiv-it', 'api-token': TOKIEN_API, 'Content-Type': 'application/x-www-form-urlencoded'},
+    
     redirect: 'follow'
 }
 
@@ -24,7 +25,7 @@ app.get('/:telephone', (request, response) => {
 app.post('/', urlencodedParser, (request, response) => {
     console.log(request.headers.link);
 
-    fetch("http://212.11.152.73:13080/SM/9/rest/contacts?query=TelegramID=%22"+msg.from.id+"%22&view=expand", requestOptions)
+    fetch("https://dit-oiv-it.4me.qa/v1/requests/4838737", requestOptions)
     .then(response => response.text())
     .then(result => {
         result = JSON.parse(result);
