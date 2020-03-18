@@ -29,7 +29,7 @@ app.post('/', urlencodedParser, (request, response) => {
     .then(response => response.text())
     .then(resultRequest => {
         resultRequest = JSON.parse(resultRequest);
-        //console.log(resultRequest.subject);
+        console.log(resultRequest);
 
         //to 4me notes
         fetch("https://dit-sd-moscow.4me.qa/v1/notes/request="+requestId, requestOptions4me)
