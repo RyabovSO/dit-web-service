@@ -47,9 +47,12 @@ app.post('/', urlencodedParser, (request, response) => {
         //jira header
         let requestOptionsJIRA = {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : 'Basic ' + base64.encode(process.env.USERNAME_JIRA + ":" + process.env.PASSWORD_JIRA)
+            },
             body: JSON.stringify(bodyJira),
-            Authorization : 'Basic ' + base64.encode(process.env.USERNAME_JIRA + ":" + process.env.PASSWORD_JIRA)
+            
         }
         console.log(requestOptionsJIRA);
         //
