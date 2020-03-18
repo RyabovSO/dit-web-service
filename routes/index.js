@@ -4,7 +4,7 @@ const router = express.Router();
 const base64 = require('base-64');
 const fetch = require('node-fetch')
 
-const port = process.env.PORT || 3000;
+
 const bodyParser = require("body-parser");
 // создаем парсер для данных application/x-www-form-urlencoded
 const urlencodedParser = bodyParser.urlencoded({extended: false});
