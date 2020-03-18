@@ -27,22 +27,23 @@ app.post('/', urlencodedParser, (request, response) => {
     //to 4me record
     fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+requestId, requestOptions4me)
     .then(response => response.text())
-    .then(result => {
-        result = JSON.parse(result);
-        console.log(result.subject);
+    .then(resultRequest => {
+        resultRequest = JSON.parse(resultRequest);
+        //console.log(resultRequest.subject);
 
         //to 4me notes
         fetch("https://dit-sd-moscow.4me.qa/v1/notes/", requestOptions4me)
         .then(response => response.text())
-        .then(result => {
-            console.log(result);
+        .then(resultNotes => {
+            resultNotes = JSON.parse(resultNotes);
+            console.log(resultNotes);
             //parse 4me record
             var bodyJira = {
                 "fields": {
                     "project": {
                         "key": "HEL"
                     },
-                    "summary": result.subject,
+                    "summary": resultRequest.subject,
                     "description": "Описание задачи очень длинное описание",
                     "issuetype": {
                         "name": "Bug"
