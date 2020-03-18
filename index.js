@@ -29,7 +29,6 @@ app.post('/', urlencodedParser, (request, response) => {
     .then(response => response.text())
     .then(resultRequest => {
         resultRequest = JSON.parse(resultRequest);
-        console.log(resultRequest);
 
         //to 4me notes
         fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+requestId+"/notes", requestOptions4me)
@@ -37,6 +36,7 @@ app.post('/', urlencodedParser, (request, response) => {
         .then(resultNotes => {
             resultNotes = JSON.parse(resultNotes);
             console.log(resultNotes);
+
             //parse 4me record
             var bodyJira = {
                 "fields": {
@@ -50,6 +50,7 @@ app.post('/', urlencodedParser, (request, response) => {
                     }
                 }
             }
+            
             //jira header
             let requestOptionsJIRA = {
                 method: 'POST',
@@ -63,14 +64,14 @@ app.post('/', urlencodedParser, (request, response) => {
             //
 
             //to JIRA
-            /*fetch("https://jira.edu.mos.ru/rest/api/2/issue", requestOptionsJIRA)
+            fetch("https://jira.edu.mos.ru/rest/api/2/issue", requestOptionsJIRA)
             .then(response => response.text())
             .then(result => {
                 result = JSON.parse(result);
                 console.log(result);
             })
-            .catch(error => console.error(error))*/
-            //
+            .catch(error => console.error(error))
+            
         })
     })
     .catch(error => console.error(error))
