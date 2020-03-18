@@ -29,7 +29,7 @@ app.post('/', urlencodedParser, (request, response) => {
     .then(response => response.text())
     .then(result => {
         result = JSON.parse(result);
-        //console.log(result);
+        console.log(result);
 
         //parse 4me record
         var bodyJira = {
@@ -54,17 +54,17 @@ app.post('/', urlencodedParser, (request, response) => {
             body: JSON.stringify(bodyJira),
             
         }
-        console.log(requestOptionsJIRA);
+        //console.log(requestOptionsJIRA);
         //
 
         //to JIRA
-        fetch("https://jira.edu.mos.ru/rest/api/2/issue", requestOptionsJIRA)
+        /*fetch("https://jira.edu.mos.ru/rest/api/2/issue", requestOptionsJIRA)
         .then(response => response.text())
         .then(result => {
             result = JSON.parse(result);
             console.log(result);
         })
-        .catch(error => console.error(error))
+        .catch(error => console.error(error))*/
         //
 
     })
