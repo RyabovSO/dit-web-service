@@ -24,49 +24,53 @@ app.post('/', urlencodedParser, (request, response) => {
     var requestId = getRequestId(request.headers.link);
     console.log(requestId);
 
-    //to 4me
+    //to 4me record
     fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+requestId, requestOptions4me)
     .then(response => response.text())
     .then(result => {
         result = JSON.parse(result);
-        console.log(result);
+        console.log(result.subject);
 
-        //parse 4me record
-        var bodyJira = {
-            "fields": {
-                "project": {
-                    "key": "HEL"
-                },
-                "summary": "Тест HPSM интеграции",
-                "description": "Описание задачи очень длинное описание",
-                "issuetype": {
-                    "name": "Bug"
-                }
-            }
-        }
-        //jira header
-        let requestOptionsJIRA = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization' : 'Basic ' + base64.encode(process.env.USERNAME_JIRA + ":" + process.env.PASSWORD_JIRA)
-            },
-            body: JSON.stringify(bodyJira),
-            
-        }
-        //console.log(requestOptionsJIRA);
-        //
-
-        //to JIRA
-        /*fetch("https://jira.edu.mos.ru/rest/api/2/issue", requestOptionsJIRA)
+        //to 4me notes
+        fetch("https://dit-sd-moscow.4me.qa/v1/notes/", requestOptions4me)
         .then(response => response.text())
         .then(result => {
-            result = JSON.parse(result);
             console.log(result);
-        })
-        .catch(error => console.error(error))*/
-        //
+            //parse 4me record
+            var bodyJira = {
+                "fields": {
+                    "project": {
+                        "key": "HEL"
+                    },
+                    "summary": result.subject,
+                    "description": "Описание задачи очень длинное описание",
+                    "issuetype": {
+                        "name": "Bug"
+                    }
+                }
+            }
+            //jira header
+            let requestOptionsJIRA = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization' : 'Basic ' + base64.encode(process.env.USERNAME_JIRA + ":" + process.env.PASSWORD_JIRA)
+                },
+                body: JSON.stringify(bodyJira),
 
+            }
+            //
+
+            //to JIRA
+            /*fetch("https://jira.edu.mos.ru/rest/api/2/issue", requestOptionsJIRA)
+            .then(response => response.text())
+            .then(result => {
+                result = JSON.parse(result);
+                console.log(result);
+            })
+            .catch(error => console.error(error))*/
+            //
+        })
     })
     .catch(error => console.error(error))
     //
