@@ -5,10 +5,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 const fetch = require('node-fetch')
 
-const requestOptions = {
+//4me header
+const requestOptions4me = {
     method: 'GET',
     headers: {'Authorization': process.env.AUTHORIZATION_KEY, 'X-4me-Account': 'dit-oiv-it', 'api-token': process.env.TOKIEN_API, 'Content-Type': 'application/x-www-form-urlencoded'},
-    
     redirect: 'follow'
 }
 
@@ -20,18 +20,52 @@ app.get('/favicon.ico', (request, response) => {
 })
 
 app.post('/', urlencodedParser, (request, response) => {
-    //console.log(request.headers.link);
+    //парсим request id
     var requestId = getRequestId(request.headers.link);
     console.log(requestId);
 
-    //fetch("https://dit-oiv-it.4me.qa/v1/requests/4838737", requestOptions)
-    fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+requestId, requestOptions)
+    //to 4me
+    fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+requestId, requestOptions4me)
     .then(response => response.text())
     .then(result => {
         result = JSON.parse(result);
-        console.log(result);
+        //console.log(result);
+
+        //parse 4me record
+        var bodyJira = {
+            "fields": {
+                "project": {
+                    "key": "HEL"
+                },
+                "summary": "Тест HPSM интеграции",
+                "description": "Описание задачи очень длинное описание",
+                "issuetype": {
+                    "name": "Bug"
+                }
+            }
+        }
+        //jira header
+        let requestOptionsJIRA = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(bodyJira),
+            Authorization : 'Basic ' + base64.encode(process.env.USERNAME_JIRA + ":" + process.env.PASSWORD_JIRA)
+        }
+        //
+
+        //to JIRA
+        fetch("https://jira.edu.mos.ru/rest/api/2/issue", requestOptionsJIRA)
+        .then(response => response.text())
+        .then(result => {
+            result = JSON.parse(result);
+            console.log(result);
+        })
+        .catch(error => console.error(error))
+        //
+
     })
     .catch(error => console.error(error))
+    //
 
     response.send(request.body)
 })
