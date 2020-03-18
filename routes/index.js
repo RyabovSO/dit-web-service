@@ -17,7 +17,7 @@ const requestOptions4me = {
 }
 
 /* POST*/
-router.post('/', urlencodedParser, (request, res) => {
+router.post('/', urlencodedParser, (request, response) => {
   	//парсим request id
     var requestId = getRequestId(request.headers.link);
     console.log(requestId);
