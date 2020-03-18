@@ -51,6 +51,7 @@ app.post('/', urlencodedParser, (request, response) => {
             body: JSON.stringify(bodyJira),
             Authorization : 'Basic ' + base64.encode(process.env.USERNAME_JIRA + ":" + process.env.PASSWORD_JIRA)
         }
+        console.log(requestOptionsJIRA);
         //
 
         //to JIRA
