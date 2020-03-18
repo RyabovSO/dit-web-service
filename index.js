@@ -19,13 +19,10 @@ app.get('/favicon.ico', (request, response) => {
     response.send(request.params)
 })
 
-app.get('/:telephone', (request, response) => {
-    response.send(request.params.telephone)
-})
-
 app.post('/', urlencodedParser, (request, response) => {
-    console.log(request.headers.link);
-
+    //console.log(request.headers.link);
+    var requestId = getRequestId(request.headers.link);
+    console.log(requestId);
     fetch("https://dit-oiv-it.4me.qa/v1/requests/4838737", requestOptions)
     .then(response => response.text())
     .then(result => {
@@ -44,3 +41,15 @@ app.listen(port, (err) => {
     console.log(`server is listening on ${port}`)
 })
 
+function getRequestId(str){
+	return ditGetSubStr(str,">").substring(str.indexOf("/"),str.length);
+} 
+
+function ditGetSubStr(str,symbol){
+	var num = str.indexOf(symbol);
+	return str.substring(0,num);
+}
+function ditGetSubStr(str,symbol){
+	var num = str.indexOf(symbol);
+	return str.substring(0,num);
+}
