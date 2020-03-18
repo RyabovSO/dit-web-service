@@ -29,10 +29,10 @@ app.post('/', urlencodedParser, (request, response) => {
     .then(response => response.text())
     .then(resultRequest => {
         resultRequest = JSON.parse(resultRequest);
-        console.log(resultRequest.notes);
+        console.log(resultRequest);
 
         //to 4me notes
-        fetch("https://dit-sd-moscow.4me.qa/v1/notes?request", requestOptions4me)
+        fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+requestId+"/notes", requestOptions4me)
         .then(response => response.text())
         .then(resultNotes => {
             resultNotes = JSON.parse(resultNotes);
@@ -44,7 +44,7 @@ app.post('/', urlencodedParser, (request, response) => {
                         "key": "HEL"
                     },
                     "summary": resultRequest.subject,
-                    "description": "Описание задачи очень длинное описание",
+                    "description": resultNotes.text,
                     "issuetype": {
                         "name": "Bug"
                     }
