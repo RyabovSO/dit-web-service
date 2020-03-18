@@ -24,7 +24,8 @@ app.post('/', urlencodedParser, (request, response) => {
     var requestId = getRequestId(request.headers.link);
     console.log(requestId);
 
-    fetch("https://dit-oiv-it.4me.qa/v1/requests/4838737", requestOptions)
+    //fetch("https://dit-oiv-it.4me.qa/v1/requests/4838737", requestOptions)
+    fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+requestId, requestOptions)
     .then(response => response.text())
     .then(result => {
         result = JSON.parse(result);
@@ -43,14 +44,16 @@ app.listen(port, (err) => {
 })
 
 function getRequestId(str){
-	return ditGetSubStr(str,">").substring(str.indexOf("/dit-sd-moscow.4me.qa/requests/")+31,str.length);
+	var addres = "https://dit-sd-moscow.4me.qa/requests/";
+	if (str.indexOf(addres) + 1){
+    	var addresLength = addres.length;
+		return ditGetSubStr(str,">").substring(str.indexOf(addres)+addresLength,str.length);
+	} else {
+		return "400 Bad Request"
+	}
 } 
 
 function ditGetSubStr(str,symbol){
-	var num = str.indexOf(symbol);
-	return str.substring(0,num);
-}
-function ditGetSubStr2(str,symbol){
 	var num = str.indexOf(symbol);
 	return str.substring(0,num);
 }
