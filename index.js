@@ -35,7 +35,7 @@ app.post('/', urlencodedParser, (request, response) => {
         .then(response => response.text())
         .then(resultNotes => {
             resultNotes = JSON.parse(resultNotes);
-            console.log(resultNotes);
+            console.log(resultNotes[0].text);
 
             //parse 4me record
             var bodyJira = {
@@ -44,13 +44,13 @@ app.post('/', urlencodedParser, (request, response) => {
                         "key": "HEL"
                     },
                     "summary": resultRequest.subject,
-                    "description": resultNotes.text,
+                    "description": resultNotes[0].text,
                     "issuetype": {
                         "name": "Bug"
                     }
                 }
             }
-            
+
             //jira header
             let requestOptionsJIRA = {
                 method: 'POST',
@@ -68,7 +68,7 @@ app.post('/', urlencodedParser, (request, response) => {
             .then(response => response.text())
             .then(result => {
                 result = JSON.parse(result);
-                console.log(result);
+                console.log(result.id);
             })
             .catch(error => console.error(error))
             
