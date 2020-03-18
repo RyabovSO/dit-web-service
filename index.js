@@ -23,6 +23,7 @@ app.post('/', urlencodedParser, (request, response) => {
     //console.log(request.headers.link);
     var requestId = getRequestId(request.headers.link);
     console.log(requestId);
+
     fetch("https://dit-oiv-it.4me.qa/v1/requests/4838737", requestOptions)
     .then(response => response.text())
     .then(result => {
@@ -42,14 +43,14 @@ app.listen(port, (err) => {
 })
 
 function getRequestId(str){
-	return ditGetSubStr(str,">").substring(str.indexOf("/"),str.length);
+	return ditGetSubStr(str,">").substring(str.indexOf("/dit-sd-moscow.4me.qa/requests/")+31,str.length);
 } 
 
 function ditGetSubStr(str,symbol){
 	var num = str.indexOf(symbol);
 	return str.substring(0,num);
 }
-function ditGetSubStr(str,symbol){
+function ditGetSubStr2(str,symbol){
 	var num = str.indexOf(symbol);
 	return str.substring(0,num);
 }
