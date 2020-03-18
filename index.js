@@ -32,7 +32,7 @@ app.post('/', urlencodedParser, (request, response) => {
         //console.log(resultRequest.subject);
 
         //to 4me notes
-        fetch("https://dit-sd-moscow.4me.qa/v1/notes/request.id="+requestId, requestOptions4me)
+        fetch("https://dit-sd-moscow.4me.qa/v1/notes/id="+requestId, requestOptions4me)
         .then(response => response.text())
         .then(resultNotes => {
             resultNotes = JSON.parse(resultNotes);
