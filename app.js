@@ -13,6 +13,6 @@ app.listen(port, (err) => {
     console.log(`server is listening on ${port}`)
 })
 
-app.use('/', fourMeToHpsmRouter);
+app.use('/hpsm', fourMeToHpsmRouter);
 app.use('/jira', fourMeToHpsmRouter);
 app.use('/favicon.ico', faviconRouter);
