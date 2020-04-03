@@ -1,4 +1,5 @@
 const express = require('express');
+const fourMeToJiraRouter = require('./routes/mejira');
 const fourMeToHpsmRouter = require('./routes/mehpsm');
 const faviconRouter = require('./routes/favicon');
 
@@ -13,4 +14,5 @@ app.listen(port, (err) => {
 })
 
 app.use('/', fourMeToHpsmRouter);
+app.use('/jira', fourMeToHpsmRouter);
 app.use('/favicon.ico', faviconRouter);
