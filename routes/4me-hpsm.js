@@ -24,7 +24,7 @@ router.post('/4me-hpsm', urlencodedParser, (request, response) => {
     console.log(request.headers.link);
 
     //to 4me record
-    fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+requestId, requestOptions4me)
+    /*fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+requestId, requestOptions4me)
     .then(response => response.text())
     .then(resultRequest => {
         resultRequest = JSON.parse(resultRequest);
@@ -60,7 +60,7 @@ router.post('/4me-hpsm', urlencodedParser, (request, response) => {
 			}
 
             //to hpsm
-            /*
+
             fetch("https://jira.edu.mos.ru/rest/api/2/issue", requestOptionsJIRA)
             .then(response => response.text())
             .then(result => {
@@ -68,13 +68,12 @@ router.post('/4me-hpsm', urlencodedParser, (request, response) => {
                 console.log(result.id);
             })
             .catch(error => console.error(error))
-            */
             
         })
     })
     .catch(error => console.error(error))
     //
-
+    */
     response.send(request.body)
 });
 
