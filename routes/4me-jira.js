@@ -17,7 +17,7 @@ const requestOptions4me = {
 }
 
 /* POST*/
-router.post('/', urlencodedParser, (request, response) => {
+router.post('/4me-jira', urlencodedParser, (request, response) => {
   	//парсим request id
     var requestId = getRequestId(request.headers.link);
     console.log(requestId);

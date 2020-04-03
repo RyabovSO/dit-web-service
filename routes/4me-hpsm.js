@@ -4,12 +4,24 @@ const router = express.Router();
 const base64 = require('base-64');
 const fetch = require('node-fetch')
 
+const bodyParser = require("body-parser");
+// создаем парсер для данных application/x-www-form-urlencoded
+const urlencodedParser = bodyParser.urlencoded({extended: false});
+
+//4me header
+const requestOptions4me = {
+    method: 'GET',
+    headers: {'Authorization': process.env.AUTHORIZATION_KEY, 'X-4me-Account': 'dit-oiv-it', 'api-token': process.env.TOKIEN_API, 'Content-Type': 'application/x-www-form-urlencoded'},
+    redirect: 'follow'
+}
+
+
 
 /* POST*/
-router.post('/', urlencodedParser, (request, response) => {
+router.post('/4me-hpsm', urlencodedParser, (request, response) => {
   	//парсим request id
     var requestId = getRequestId(request.headers.link);
-    console.log(requestId);
+    console.log(request.headers.link);
 
     //to 4me record
     fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+requestId, requestOptions4me)
@@ -22,10 +34,10 @@ router.post('/', urlencodedParser, (request, response) => {
         .then(response => response.text())
         .then(resultNotes => {
             resultNotes = JSON.parse(resultNotes);
-            console.log(resultNotes[0].text);
+            //console.log(resultNotes[0].text);
 
-            //parse 4me record
-            var bodyJira = {
+            //body
+            var bodyHpsm = {
                 "fields": {
                     "project": {
                         "key": "HEL"
@@ -37,20 +49,18 @@ router.post('/', urlencodedParser, (request, response) => {
                     }
                 }
             }
+            //sm header
+			let requestOptionsHPSM = {
+			    method: 'POST',
+			    headers: {
+			        'Content-Type': 'application/json',
+			        'Authorization' : 'Basic ' + base64.encode(process.env.USERNAME_JIRA + ":" + process.env.PASSWORD_JIRA)
+			    },
+			    body: JSON.stringify(bodyJira),
+			}
 
-            //JIRA header
-            let requestOptionsJIRA = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization' : 'Basic ' + base64.encode(process.env.USERNAME_JIRA + ":" + process.env.PASSWORD_JIRA)
-                },
-                body: JSON.stringify(bodyJira),
-
-            }
-            //
-
-            //to JIRA
+            //to hpsm
+            /*
             fetch("https://jira.edu.mos.ru/rest/api/2/issue", requestOptionsJIRA)
             .then(response => response.text())
             .then(result => {
@@ -58,6 +68,7 @@ router.post('/', urlencodedParser, (request, response) => {
                 console.log(result.id);
             })
             .catch(error => console.error(error))
+            */
             
         })
     })
