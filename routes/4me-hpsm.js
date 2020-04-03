@@ -1,0 +1,85 @@
+const express = require('express');
+const app = express();
+const router = express.Router();
+const base64 = require('base-64');
+const fetch = require('node-fetch')
+
+
+/* POST*/
+router.post('/', urlencodedParser, (request, response) => {
+  	//парсим request id
+    var requestId = getRequestId(request.headers.link);
+    console.log(requestId);
+
+    //to 4me record
+    fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+requestId, requestOptions4me)
+    .then(response => response.text())
+    .then(resultRequest => {
+        resultRequest = JSON.parse(resultRequest);
+
+        //to 4me notes
+        fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+requestId+"/notes", requestOptions4me)
+        .then(response => response.text())
+        .then(resultNotes => {
+            resultNotes = JSON.parse(resultNotes);
+            console.log(resultNotes[0].text);
+
+            //parse 4me record
+            var bodyJira = {
+                "fields": {
+                    "project": {
+                        "key": "HEL"
+                    },
+                    "summary": resultRequest.subject,
+                    "description": resultNotes[0].text,
+                    "issuetype": {
+                        "name": "Bug"
+                    }
+                }
+            }
+
+            //JIRA header
+            let requestOptionsJIRA = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization' : 'Basic ' + base64.encode(process.env.USERNAME_JIRA + ":" + process.env.PASSWORD_JIRA)
+                },
+                body: JSON.stringify(bodyJira),
+
+            }
+            //
+
+            //to JIRA
+            fetch("https://jira.edu.mos.ru/rest/api/2/issue", requestOptionsJIRA)
+            .then(response => response.text())
+            .then(result => {
+                result = JSON.parse(result);
+                console.log(result.id);
+            })
+            .catch(error => console.error(error))
+            
+        })
+    })
+    .catch(error => console.error(error))
+    //
+
+    response.send(request.body)
+});
+
+module.exports = router;
+
+function getRequestId(str){
+    var addres = "https://dit-sd-moscow.4me.qa/requests/";
+    if (str.indexOf(addres) + 1){
+        var addresLength = addres.length;
+        return ditGetSubStr(str,">").substring(str.indexOf(addres)+addresLength,str.length);
+    } else {
+        return "400 Bad Request"
+    }
+} 
+
+function ditGetSubStr(str,symbol){
+    var num = str.indexOf(symbol);
+    return str.substring(0,num);
+}

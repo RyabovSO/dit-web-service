@@ -49,7 +49,7 @@ router.post('/', urlencodedParser, (request, response) => {
                 }
             }
 
-            //jira header
+            //JIRA header
             let requestOptionsJIRA = {
                 method: 'POST',
                 headers: {
