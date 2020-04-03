@@ -18,7 +18,7 @@ const requestOptions4me = {
 
 
 /* POST*/
-router.post('/', urlencodedParser, (request, response) => {
+router.post('/hpsm', urlencodedParser, (request, response) => {
   	//парсим request id
     var requestId = getRequestId(request.headers.link);
     console.log(request.headers.link);
