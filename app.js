@@ -14,5 +14,5 @@ app.listen(port, (err) => {
 })
 
 app.use('/jira', fourMeToJiraRouter);
-app.use('/hpsm', fourMeToHpsmRouter);
+app.use('/', fourMeToHpsmRouter);
 app.use('/favicon.ico', faviconRouter);
