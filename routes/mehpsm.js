@@ -82,7 +82,9 @@ router.post('/', urlencodedParser, (request, response) => {
                     fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+requestId+"/notes", requestOptionsPOST4me)
                      .then(response => response.text())
                      .then(resultEnd => {
-                        resultEnd = JSON.parse(resultEnd);   
+                        resultEnd = JSON.parse(resultEnd);
+                        console.log(resultEnd);  
+                        return;
                     })
                     .catch(error => console.error(error))
                 })
