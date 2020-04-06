@@ -40,6 +40,7 @@ router.post('/', urlencodedParser, (request, response) => {
                 resultNotes = JSON.parse(resultNotes);
                 //console.log(resultNotes[0].text);
                 //console.log(resultRequest.requested_for.id);
+                console.log(resultPeople.primary_email);
                 //body
                 var bodyHpsm = {
                     "HPSMInteraction4meREST": {
