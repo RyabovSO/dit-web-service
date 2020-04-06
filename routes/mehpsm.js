@@ -15,8 +15,6 @@ const requestOptions4me = {
     redirect: 'follow'
 }
 
-
-
 /* POST*/
 router.post('/', urlencodedParser, (request, response) => {
   	//парсим request id
@@ -69,6 +67,24 @@ router.post('/', urlencodedParser, (request, response) => {
                 .then(result => {
                     result = JSON.parse(result);
                     console.log(result.HPSMInteraction4meREST.ID);
+                    let requestOptionsPOST4me = {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': process.env.AUTHORIZATION_KEY, 
+                            'X-4me-Account': 'dit-oiv-it', 
+                            'api-token': process.env.TOKIEN_API, 
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: JSON.stringify({text: "Создано обращение в системе HPSM под номером"+result.HPSMInteraction4meREST.ID}),
+                    }
+                    
+
+                    fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+requestId+"/notes", requestOptionsPOST4me)
+                     .then(response => response.text())
+                     .then(resultEnd => {
+                        resultEnd = JSON.parse(result);   
+                    })
+                    .catch(error => console.error(error))
                 })
                 .catch(error => console.error(error))
             })
