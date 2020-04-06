@@ -33,14 +33,16 @@ router.post('/', urlencodedParser, (request, response) => {
         fetch("https://dit-sd-moscow.4me.qa/v1/people/"+resultRequest.requested_for.id, requestOptions4me)
          .then(response => response.text())
          .then(resultPeople => {
+            resultPeople = JSON.parse(resultPeople);
+
             //to 4me notes
             fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+requestId+"/notes", requestOptions4me)
             .then(response => response.text())
             .then(resultNotes => {
                 resultNotes = JSON.parse(resultNotes);
                 //console.log(resultNotes[0].text);
-                console.log(resultRequest.requested_for.id);
-                console.log(resultPeople);
+                //console.log(resultRequest.requested_for.id);
+                console.log(resultPeople.primary_email);
                 //body
                 var bodyHpsm = {
                     "HPSMInteraction4meREST": {
