@@ -39,8 +39,9 @@ router.post('/', urlencodedParser, (request, response) => {
             //body
             var bodyHpsm = {
                 "HPSMInteraction4meREST": {
+                    "User": resultRequest.requested_for.name,
                     "Description": [resultNotes[0].text],
-                    "Email": "outout@mail.ru",
+                    //"Email": "outout@mail.ru",
                     "Title":  resultRequest.subject
                 }
             }
