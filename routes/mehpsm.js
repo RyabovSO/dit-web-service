@@ -35,7 +35,7 @@ router.post('/', urlencodedParser, (request, response) => {
         .then(resultNotes => {
             resultNotes = JSON.parse(resultNotes);
             //console.log(resultNotes[0].text);
-            //console.log(resultRequest);
+            console.log(resultRequest.requested_for);
             //body
             var bodyHpsm = {
                 "HPSMInteraction4meREST": {
