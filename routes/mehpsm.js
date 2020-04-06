@@ -35,7 +35,7 @@ router.post('/', urlencodedParser, (request, response) => {
         .then(resultNotes => {
             resultNotes = JSON.parse(resultNotes);
             //console.log(resultNotes[0].text);
-            console.log(resultRequest);
+            //console.log(resultRequest);
             //body
             var bodyHpsm = {
                 "HPSMInteraction4meREST": {
@@ -57,12 +57,11 @@ router.post('/', urlencodedParser, (request, response) => {
 			}
 
             //to hpsm
-
             fetch("http://212.11.152.73:13081/SM/9/rest/HPSMInteraction4meREST/", requestOptionsHPSM)
             .then(response => response.text())
             .then(result => {
                 result = JSON.parse(result);
-                console.log(result);
+                console.log(result.HPSMInteraction4meREST.ID);
             })
             .catch(error => console.error(error))
             
