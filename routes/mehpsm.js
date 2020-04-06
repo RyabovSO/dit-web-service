@@ -49,7 +49,7 @@ router.post('/', urlencodedParser, (request, response) => {
 			    method: 'POST',
 			    headers: {
 			        'Content-Type': 'application/json',
-                    'Connection': 'keep-alive'
+                    'Connection': 'keep-alive',
 			        'Authorization' : 'Basic ' + base64.encode(process.env.USERNAME_HPSM + ":" + process.env.PASSWORD_HPSM)
 			    },
 			    body: JSON.stringify(bodyHpsm),
