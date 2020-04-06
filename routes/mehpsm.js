@@ -21,10 +21,10 @@ const requestOptions4me = {
 router.post('/', urlencodedParser, (request, response) => {
   	//парсим request id
     var requestId = getRequestId(request.headers.link);
-    console.log(request.headers.link);
+    console.log(requestId);
 
     //to 4me record
-    /*fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+requestId, requestOptions4me)
+    fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+requestId, requestOptions4me)
     .then(response => response.text())
     .then(resultRequest => {
         resultRequest = JSON.parse(resultRequest);
@@ -34,19 +34,14 @@ router.post('/', urlencodedParser, (request, response) => {
         .then(response => response.text())
         .then(resultNotes => {
             resultNotes = JSON.parse(resultNotes);
-            //console.log(resultNotes[0].text);
+            ///console.log(resultNotes[0].text);
 
             //body
             var bodyHpsm = {
-                "fields": {
-                    "project": {
-                        "key": "HEL"
-                    },
-                    "summary": resultRequest.subject,
-                    "description": resultNotes[0].text,
-                    "issuetype": {
-                        "name": "Bug"
-                    }
+                "HPSMInteraction4meREST": {
+                    "Description": [resultNotes[0].text],
+                    "Email": "outout@mail.ru",
+                    "Title":  resultRequest.subject
                 }
             }
             //sm header
@@ -54,18 +49,19 @@ router.post('/', urlencodedParser, (request, response) => {
 			    method: 'POST',
 			    headers: {
 			        'Content-Type': 'application/json',
-			        'Authorization' : 'Basic ' + base64.encode(process.env.USERNAME_JIRA + ":" + process.env.PASSWORD_JIRA)
+                    'Connection': 'keep-alive'
+			        'Authorization' : 'Basic ' + base64.encode(process.env.USERNAME_HPSM + ":" + process.env.PASSWORD_HPSM)
 			    },
-			    body: JSON.stringify(bodyJira),
+			    body: JSON.stringify(bodyHpsm),
 			}
 
             //to hpsm
 
-            fetch("https://jira.edu.mos.ru/rest/api/2/issue", requestOptionsJIRA)
+            fetch("http://212.11.152.73:13081/SM/9/rest/HPSMInteraction4meREST/", requestOptionsHPSM)
             .then(response => response.text())
             .then(result => {
                 result = JSON.parse(result);
-                console.log(result.id);
+                console.log(result);
             })
             .catch(error => console.error(error))
             
@@ -73,7 +69,7 @@ router.post('/', urlencodedParser, (request, response) => {
     })
     .catch(error => console.error(error))
     //
-    */
+    
     response.send(request.body)
 });
 
