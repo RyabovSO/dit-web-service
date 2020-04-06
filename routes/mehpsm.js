@@ -75,14 +75,14 @@ router.post('/', urlencodedParser, (request, response) => {
                             'api-token': process.env.TOKIEN_API, 
                             'Content-Type': 'application/x-www-form-urlencoded'
                         },
-                        body: JSON.stringify({text: "Создано обращение в системе HPSM под номером"+result.HPSMInteraction4meREST.ID}),
+                        body: JSON.stringify({text: "Создано обращение в системе HPSM под номером: "+result.HPSMInteraction4meREST.ID}),
                     }
                     
 
                     fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+requestId+"/notes", requestOptionsPOST4me)
                      .then(response => response.text())
                      .then(resultEnd => {
-                        resultEnd = JSON.parse(result);   
+                        resultEnd = JSON.parse(resultEnd);   
                     })
                     .catch(error => console.error(error))
                 })
