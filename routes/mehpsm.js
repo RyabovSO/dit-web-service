@@ -79,6 +79,10 @@ router.post('/', urlencodedParser, (request, response) => {
                             custom_fields: [{
                                 "id": "incident_id",
                                 "value": result.HPSMInteraction4meREST.ID
+                            },
+                            {
+                                "id": "hpc_status",
+                                "value": "Новое"
                             }],
                         }),
                     }
