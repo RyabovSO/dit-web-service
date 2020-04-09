@@ -75,7 +75,12 @@ router.post('/', urlencodedParser, (request, response) => {
                             'api-token': process.env.TOKIEN_API, 
                             'Content-Type': 'application/x-www-form-urlencoded'
                         },
-                        body: JSON.stringify({text: "Создано обращение в системе HPSM под номером: "+result.HPSMInteraction4meREST.ID}),
+                        body: JSON.stringify({
+                            custom_fields: [{
+                                "id": "incident_id",
+                                "value": result.HPSMInteraction4meREST.ID
+                            }],
+                        }),
                     }
                     
 
