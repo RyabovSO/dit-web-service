@@ -68,7 +68,7 @@ router.post('/', urlencodedParser, (request, response) => {
                     result = JSON.parse(result);
                     console.log(result.HPSMInteraction4meREST.ID);
                     let requestOptionsPOST4me = {
-                        method: 'POST',
+                        method: 'PATCH',
                         headers: {
                             'Authorization': process.env.AUTHORIZATION_KEY, 
                             'X-4me-Account': 'dit-oiv-it', 
