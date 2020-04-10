@@ -1,6 +1,7 @@
 const express = require('express');
-const fourMeToJiraRouter = require('./routes/mejira');
-const fourMeToHpsmRouter = require('./routes/mehpsm');
+const fourMeToJiraRouter = require('./routes/jira');
+const fourMeToHpsmRouter = require('./routes/hpsm');
+const hpsmToFourMeRouter = require('./routes/fourme');
 const faviconRouter = require('./routes/favicon');
 
 const app = express();
@@ -13,6 +14,7 @@ app.listen(port, (err) => {
     console.log(`server is listening on ${port}`)
 })
 
+app.use('/fourme', hpsmToFourMeRouter);
 app.use('/hpsm', fourMeToHpsmRouter);
 app.use('/jira', fourMeToHpsmRouter);
 app.use('/favicon.ico', faviconRouter);
