@@ -47,7 +47,9 @@ router.post('/', urlencodedParser, (request, response) => {
                         //"User": resultRequest.requested_for.name,
                         "Description": [resultNotes[0].text],
                         "Email": resultPeople.primary_email,
-                        "Title":  resultRequest.subject
+                        "Title":  resultRequest.subject,
+                        "hpc_additional_field_4": "4me",
+                        "hpc_additional_field_5": requestId
                     }
                 }
                 //sm header
