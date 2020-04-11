@@ -16,7 +16,7 @@ const requestOptions4me = {
 }
 
 /* POST*/
-router.post('/', urlencodedParser, (request, response) => {
+router.post('/', (request, response) => {
   	//парсим request id
     console.log(request);
     response.send(request.body)
