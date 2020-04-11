@@ -12,7 +12,7 @@ const urlencodedParser = bodyParser.json();
 router.post('/', urlencodedParser, (request, response) => {
   	//парсим request id
   	console.log(request.body.id);
-    console.log(request.body.custom_fields);
+    console.log(request.body.custom_fields.incident_id);
 
     //4me header
 	let requestOptionsPOST4me = {
@@ -23,7 +23,17 @@ router.post('/', urlencodedParser, (request, response) => {
 	        'api-token': process.env.TOKIEN_API, 
 	        'Content-Type': 'application/x-www-form-urlencoded'
 	    },
-	    body: JSON.stringify(request.body.custom_fields),
+	    body: JSON.stringify(({request.body.custom_fields}),
+	    /*body: JSON.stringify({
+	        custom_fields: [{
+	            "id": "incident_id",
+	            "value": request.body.id
+	        },
+	        {
+	            "id": "hpc_status",
+	            "value": "Новое1"
+	        }],
+	    }),*/
 	}
 
     fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+request.body.id, requestOptionsPOST4me)
