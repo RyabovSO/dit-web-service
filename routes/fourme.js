@@ -28,7 +28,7 @@ router.post('/', urlencodedParser, (request, response) => {
 	    body: JSON.stringify({
 	        custom_fields: [{
 	            "id": "incident_id",
-	            "value": request.body.id
+	            "value": "SD09750681"
 	        },
 	        {
 	            "id": "hpc_status",
