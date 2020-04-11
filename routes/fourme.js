@@ -11,8 +11,9 @@ const urlencodedParser = bodyParser.json();
 /* POST*/
 router.post('/', urlencodedParser, (request, response) => {
   	//парсим request id
-  	console.log(request.body.id);
-    console.log(request.body.custom_fields[1].value);
+  	//console.log(request.body.id);
+  	//console.log(request.body.custom_fields[0].value);
+    //console.log(request.body.custom_fields[1].value);
 
     //4me header
 	let requestOptionsPOST4me = {
@@ -28,11 +29,11 @@ router.post('/', urlencodedParser, (request, response) => {
 	    body: JSON.stringify({
 	        custom_fields: [{
 	            "id": "incident_id",
-	            "value": "SD09750681"
+	            "value": request.body.custom_fields[0].value
 	        },
 	        {
 	            "id": "hpc_status",
-	            "value": "Новое1"
+	            "value": request.body.custom_fields[1].value
 	        }],
 	    }),
 	}
