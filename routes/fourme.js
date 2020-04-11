@@ -12,7 +12,7 @@ const urlencodedParser = bodyParser.json();
 router.post('/', urlencodedParser, (request, response) => {
   	//парсим request id
   	console.log(request.body.id);
-    console.log(request.body.custom_fields);
+    console.log(request.body.custom_fields[1].value);
 
     //4me header
 	let requestOptionsPOST4me = {
