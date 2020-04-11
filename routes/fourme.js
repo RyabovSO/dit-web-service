@@ -24,8 +24,8 @@ router.post('/', urlencodedParser, (request, response) => {
 	        'Content-Type': 'application/x-www-form-urlencoded'
 	    },
 	    //body: JSON.stringify(request.body.custom_fields),
-	    body: JSON.stringify({request.body.custom_fields}),
-	    /*body: JSON.stringify({
+	    /*body: JSON.stringify({request.body.custom_fields}),*/
+	    body: JSON.stringify({
 	        custom_fields: [{
 	            "id": "incident_id",
 	            "value": request.body.id
@@ -34,7 +34,7 @@ router.post('/', urlencodedParser, (request, response) => {
 	            "id": "hpc_status",
 	            "value": "Новое1"
 	        }],
-	    }),*/
+	    }),
 	}
 
     fetch("https://dit-sd-moscow.4me.qa/v1/requests/"+request.body.id, requestOptionsPOST4me)
