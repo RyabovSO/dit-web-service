@@ -6,7 +6,7 @@ const fetch = require('node-fetch')
 
 const bodyParser = require("body-parser");
 // создаем парсер для данных application/x-www-form-urlencoded
-const urlencodedParser = bodyParser.urlencoded({extended: true});
+const urlencodedParser = bodyParser.urlencoded({extended: false});
 
 //4me header
 const requestOptions4me = {
@@ -16,7 +16,7 @@ const requestOptions4me = {
 }
 
 /* POST*/
-router.post('/', (request, response) => {
+router.post('/', urlencodedParser, (request, response) => {
   	//парсим request id
     console.log(request);
     response.send(request.body)
