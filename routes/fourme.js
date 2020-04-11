@@ -24,7 +24,7 @@ router.post('/', urlencodedParser, (request, response) => {
 	        'Content-Type': 'application/x-www-form-urlencoded'
 	    },
 	    //body: JSON.stringify(request.body.custom_fields),
-	    body: request.body.custom_fields,
+	    body: JSON.stringify({request.body.custom_fields}),
 	    /*body: JSON.stringify({
 	        custom_fields: [{
 	            "id": "incident_id",
