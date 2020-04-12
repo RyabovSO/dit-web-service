@@ -46,7 +46,7 @@ router.post('/', urlencodedParser, (request, response) => {
     })
 
     .catch(error => console.error(error))
-    response.send(request.body);
+    response.send(0);
 });
 
 module.exports = router;
