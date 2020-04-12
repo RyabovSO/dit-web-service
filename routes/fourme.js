@@ -42,7 +42,7 @@ router.post('/', urlencodedParser, (request, response) => {
      .then(response => response.text())
      .then(result => {
         result = JSON.parse(result);
-        console.log(result);  
+        //console.log(result);  
     })
 
     .catch(error => console.error(error))
