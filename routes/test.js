@@ -3,7 +3,7 @@ const app = express();
 const router = express.Router();
 
 /* POST*/
-router.get('/', urlencodedParser, (request, response) => {
+router.get('/', (request, response) => {
 
     response.send(
 	{
